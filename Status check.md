@@ -1,3 +1,4 @@
+```
 GET {{BASE_URL}}/status
 
 test:
@@ -18,4 +19,5 @@ response:
 {
     "status": "OK"
 }
-
+```
+![alt text](Books_get.png)
