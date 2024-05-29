@@ -1,0 +1,49 @@
+name: API_tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Check out my other private repo
+        uses: actions/checkout@master
+        with:
+          repository: FoldiKrizsanIldiko/SwagLabs-Maven
+          token: ${{ secrets.ACTION_TOKEN}}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      
+      # Install newman
+      - name: Install newman with reporter
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
+
+      #Create folder to export results
+      - name: Create folder
+        run: mkdir Testresults
+
+      # Run collection
+      - name: Run collection
+        run: |
+          newman run "postman_collection.json" -r htmlextra --reporter-htmlextra-export Testresults/result.html
+      # Publish the report
+
+      - name: Publish report
+        uses: actions/upload-artifact@v3
+        with:
+          name: Reports
+          path: Testresults
+          
