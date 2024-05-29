@@ -18,7 +18,7 @@ jobs:
       - name: Check out my other private repo
         uses: actions/checkout@master
         with:
-          repository: FoldiKrizsanIldiko/SwagLabs-Maven
+          repository: FoldiKrizsanIldiko/JiraAction
           token: ${{ secrets.ACTION_TOKEN}}
 
       - uses: actions/setup-node@v4
