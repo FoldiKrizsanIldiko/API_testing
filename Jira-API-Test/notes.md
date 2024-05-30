@@ -43,3 +43,12 @@ U can find more information [here](https://www.npmjs.com/package/newman-reporter
 
 I cannot add a Postman collection file to a public repository. I have placed it in a private repository and will run tests from there.
 I removed all sensitive data from the collection file, and I'm posting it here.
+
+
+The older version of Collection runs in Monitors 
+
+![alt text](monitoringCollectionFirstWeek.png)
+
+Nem new expanded collection will run every Monday at 9 AM.
+
+![alt text](monitorigWeekly.png)
