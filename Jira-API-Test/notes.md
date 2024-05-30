@@ -40,3 +40,6 @@ This command will create a new report in the ./newman directory, if the director
 
 
 U can find more information [here](https://www.npmjs.com/package/newman-reporter-htmlextra).
+
+I cannot add a Postman collection file to a public repository. I have placed it in a private repository and will run tests from there.
+I removed all sensitive data from the collection file, and I'm posting it here.
