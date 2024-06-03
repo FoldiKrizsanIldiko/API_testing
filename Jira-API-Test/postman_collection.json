@@ -1,0 +1,802 @@
+{
+	"info": {
+		"_postman_id": "?",
+		"name": "Jira-API",
+		"schema": "?",
+		"_exporter_id": "?"
+	},
+	"item": [
+		{
+			"name": "get events",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const resp = pm.response.json();\r",
+							"\r",
+							"console.log(resp.length);\r",
+							"\r",
+							"pm.test(\"I got events\", ()=>{\r",
+							"    pm.expect(resp.length).to.be.greaterThan(0);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{jira-token}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{jira-username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{jira-fki}}/rest/api/3/events",
+					"host": [
+						"{{jira-fki}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"3",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all the issues - set the first key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const resp = pm.response.json();\r",
+							"\r",
+							"console.log(resp.issues[0].key);\r",
+							"\r",
+							"pm.collectionVariables.set(\"first_issue_key\", resp.issues[0].key);\r",
+							"\r",
+							"pm.test(\"I found some issues\", ()=>{\r",
+							"    pm.expect(resp.issues.length).to.be.above(0);\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{jira-token}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{jira-username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{jira-fki}}/rest/api/3/search",
+					"host": [
+						"{{jira-fki}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"3",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get an issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const resp = pm.response.json();\r",
+							"const theKeyFromVar = pm.collectionVariables.get(\"first_issue_key\");\r",
+							"pm.test(\"The key is correct\", ()=>{\r",
+							"    pm.expect(resp.key).to.be.eql(theKeyFromVar);\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{jira-token}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{jira-username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{jira-fki}}/rest/api/3/issue/:issueKey",
+					"host": [
+						"{{jira-fki}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"3",
+						"issue",
+						":issueKey"
+					],
+					"variable": [
+						{
+							"key": "issueKey",
+							"value": "{{first_issue_key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Creating issue is succeed\", ()=>{\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"const resp = pm.response.json();\r",
+							"\r",
+							"pm.collectionVariables.set(\"keyOfCreatedIssue\", resp.key);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{jira-token}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{jira-username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"fields\": {\r\n    \"project\": {\r\n      \"key\": \"FIR\"\r\n    },\r\n    \"summary\": \"Sample issue created via API\",\r\n    \"description\": {\r\n            \"type\": \"doc\",\r\n            \"version\": 1,\r\n            \"content\": [\r\n                {\r\n                \"type\": \"paragraph\",\r\n                \"content\": [\r\n                    {\r\n                    \"text\": \"This is the description.\",\r\n                    \"type\": \"text\"\r\n                    }\r\n                ]\r\n                }\r\n            ]\r\n    },\r\n    \"issuetype\": {\r\n      \"name\": \"Task\"\r\n    }\r\n  }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{jira-fki}}/rest/api/3/issue",
+					"host": [
+						"{{jira-fki}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"3",
+						"issue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate the summary field",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Issue sent\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const resp = pm.response.json();\r",
+							"const sumField = resp.fields.summary;\r",
+							"\r",
+							"pm.test(\"The summary field is correct\", ()=>{\r",
+							"    pm.expect(sumField).to.be.eql(\"Sample issue created via API\");\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{jira-token}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{jira-username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{jira-fki}}/rest/api/3/issue/:issueKey",
+					"host": [
+						"{{jira-fki}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"3",
+						"issue",
+						":issueKey"
+					],
+					"variable": [
+						{
+							"key": "issueKey",
+							"value": "{{keyOfCreatedIssue}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "comment on issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Comment has been added\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"const resp = pm.response.json();\r",
+							"const comText = resp.body.content[0].content[0].text;\r",
+							"pm.test(\"The comment text is correct\", ()=>{\r",
+							"    pm.expect(comText).eqls(\"This comment has been added with API!\")\r",
+							"})\r",
+							"{}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{jira-token}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{jira-username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"body\": {\r\n    \"type\": \"doc\",\r\n    \"version\": 1,\r\n    \"content\": [\r\n      {\r\n        \"type\": \"paragraph\",\r\n        \"content\": [\r\n          {\r\n            \"type\": \"text\",\r\n            \"text\": \"This comment has been added with API!\"\r\n          }\r\n        ]\r\n      }\r\n    ]\r\n  }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{jira-fki}}/rest/api/3/issue/:issueKey/comment",
+					"host": [
+						"{{jira-fki}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"3",
+						"issue",
+						":issueKey",
+						"comment"
+					],
+					"variable": [
+						{
+							"key": "issueKey",
+							"value": "{{keyOfCreatedIssue}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate the comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"I got comments\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"const resp = pm.response.json();\r",
+							"const numOfComments = resp.comments.length;\r",
+							"let textOfComment;\r",
+							"pm.test(\"I have only one comment\",()=>{\r",
+							"    pm.expect(numOfComments).equal(1);\r",
+							"});\r",
+							"if(numOfComments==1){\r",
+							"    textOfComment = resp.comments[0].body.content[0].content[0].text;\r",
+							"    pm.test(\"The text of comment is correct\", ()=>{\r",
+							"        pm.expect(textOfComment).eql(\"This comment has been added with API!\");\r",
+							"    });\r",
+							"\r",
+							"    pm.collectionVariables.set(\"comment_id\", resp.comments[0].id);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{jira-token}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{jira-username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{jira-fki}}/rest/api/3/issue/:issueKey/comment",
+					"host": [
+						"{{jira-fki}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"3",
+						"issue",
+						":issueKey",
+						"comment"
+					],
+					"variable": [
+						{
+							"key": "issueKey",
+							"value": "{{keyOfCreatedIssue}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modify comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"The modification succeeded\", ()=>{\r",
+							"    pm.response.to.have.status(200); \r",
+							"})\r",
+							"\r",
+							"const resp = pm.response.json();\r",
+							"pm.test(\"The comment text is correct\",()=>{\r",
+							"    pm.expect(resp.body.content[0].content[0].text).eql(\"This comment has been added with API! I have updated this comment!!!!!!!!\");\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{jira-token}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{jira-username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"body\": {\r\n    \"type\": \"doc\",\r\n    \"version\": 1,\r\n    \"content\": [\r\n      {\r\n        \"type\": \"paragraph\",\r\n        \"content\": [\r\n          {\r\n            \"type\": \"text\",\r\n            \"text\": \"This comment has been added with API! I have updated this comment!!!!!!!!\"\r\n          }\r\n        ]\r\n      }\r\n    ]\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{jira-fki}}/rest/api/3/issue/:issueKey/comment/{{comment_id}}",
+					"host": [
+						"{{jira-fki}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"3",
+						"issue",
+						":issueKey",
+						"comment",
+						"{{comment_id}}"
+					],
+					"variable": [
+						{
+							"key": "issueKey",
+							"value": "{{keyOfCreatedIssue}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate the edited comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const resp = pm.response.json();\r",
+							"\r",
+							"pm.test(\"The text message is correct\",()=>{\r",
+							"    pm.expect(resp.body.content[0].content[0].text).eq(\"This comment has been added with API! I have updated this comment!!!!!!!!\")\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{jira-token}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{jira-username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{jira-fki}}/rest/api/3/issue/:issueKey/comment/{{comment_id}}",
+					"host": [
+						"{{jira-fki}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"3",
+						"issue",
+						":issueKey",
+						"comment",
+						"{{comment_id}}"
+					],
+					"variable": [
+						{
+							"key": "issueKey",
+							"value": "{{keyOfCreatedIssue}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"The comment is deleted\",()=>{\r",
+							"    pm.response.to.have.status(204)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{jira-token}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{jira-username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{jira-fki}}/rest/api/3/issue/:issueKey/comment/{{comment_id}}",
+					"host": [
+						"{{jira-fki}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"3",
+						"issue",
+						":issueKey",
+						"comment",
+						"{{comment_id}}"
+					],
+					"variable": [
+						{
+							"key": "issueKey",
+							"value": "{{keyOfCreatedIssue}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Issue is deleted\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{jira-token}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{jira-username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{jira-fki}}/rest/api/3/issue/:issueKey",
+					"host": [
+						"{{jira-fki}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"3",
+						"issue",
+						":issueKey"
+					],
+					"variable": [
+						{
+							"key": "issueKey",
+							"value": "{{keyOfCreatedIssue}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "jira-fki",
+			"value": "?"
+		},
+		{
+			"key": "keyOfCreatedIssue",
+			"value": "?"
+		},
+		{
+			"key": "jira-token",
+			"value": "?",
+			"type": "string"
+		},
+		{
+			"key": "jira-username",
+			"value": "?",
+			"type": "string"
+		},
+		{
+			"key": "first_issue_key",
+			"value": "?"
+		},
+		{
+			"key": "comment_id",
+			"value": ""
+		}
+	]
+}
