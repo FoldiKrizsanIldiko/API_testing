@@ -64,7 +64,7 @@ My tests utilize several GET, POST, PUT and DELETE requests:
 10. Delete Comment: The comment created for testing purposes is deleted.
 11. Delete Test Issue: Finally, the issue created solely for testing is deleted.
 
-<img src="Collection.png" width="70%" style="display:block;margin-left: auto; margin-right: auto;"> 
+<img src="Collection.png" width="20%" style="display:block;margin-left: auto; margin-right: auto;"> 
 
 #### Run is in pipeline
 
@@ -73,16 +73,17 @@ To run the Postman API tests within my GitHub Actions pipeline, I leverage Newma
 Within the YAML file of this private repository, I can securely access the private repository using a token and execute the tests from there. Additionally, I've stored a version of the JSON file (stripped of sensitive data and replaced with "?") within this public repository for informational purposes.
 
 Test reports are generated and placed in the "Reports" folder. You can download these reports from the workflow's artifacts.
+<img src="ReportsInAction.png" width="40%" style="display:block;margin-left: auto; margin-right: auto;"> 
 
-![alt text](ReportsInAction.png)
-![alt text](HTMLReport.png)
 
+<img src="HTMLReport.png" width="40%" style="display:block;margin-left: auto; margin-right: auto;"> 
 
 #### Setting up monitoring
 
 I've configured monitoring for these API endpoints. The monitoring will execute all the tests every Monday and send email notifications if any tests fail.
 
 
-<img src="monitoringSetting.png" width="50%" style="display:block;margin-left: auto; margin-right: auto;"> 
+<img src="monitoringSetting.png" width="20%" style="display:block;margin-left: auto; margin-right: auto;"> 
+</p>
 
-![alt text](monitoring.png)
+<img src="monitoring.png" width="40%" style="display:block;margin-left: auto; margin-right: auto;"> 
