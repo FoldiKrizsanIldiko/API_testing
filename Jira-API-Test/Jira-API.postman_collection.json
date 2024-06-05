@@ -7,24 +7,22 @@
 	},
 	"item": [
 		{
-			"name": "get events",
+			"name": "Get All Events",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"const resp = pm.response.json();\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
 							"\r",
-							"console.log(resp.length);\r",
+							"const resp = pm.response.json();\r",
 							"\r",
 							"pm.test(\"I got events\", ()=>{\r",
 							"    pm.expect(resp.length).to.be.greaterThan(0);\r",
 							"});\r",
-							"\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -37,12 +35,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "{{jira-token}}",
+							"value": "{{J_password}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "{{jira-username}}",
+							"value": "{{J_username}}",
 							"type": "string"
 						}
 					]
@@ -65,15 +63,17 @@
 			"response": []
 		},
 		{
-			"name": "all the issues - set the first key",
+			"name": "Get All Issues",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"const resp = pm.response.json();\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
 							"\r",
-							"console.log(resp.issues[0].key);\r",
+							"const resp = pm.response.json();\r",
 							"\r",
 							"pm.collectionVariables.set(\"first_issue_key\", resp.issues[0].key);\r",
 							"\r",
@@ -92,12 +92,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "{{jira-token}}",
+							"value": "{{J_password}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "{{jira-username}}",
+							"value": "{{J_username}}",
 							"type": "string"
 						}
 					]
@@ -120,14 +120,20 @@
 			"response": []
 		},
 		{
-			"name": "get an issue",
+			"name": "Get Specific Issue",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
 							"const resp = pm.response.json();\r",
+							"\r",
 							"const theKeyFromVar = pm.collectionVariables.get(\"first_issue_key\");\r",
+							"\r",
 							"pm.test(\"The key is correct\", ()=>{\r",
 							"    pm.expect(resp.key).to.be.eql(theKeyFromVar);\r",
 							"})"
@@ -142,13 +148,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "{{jira-token}}",
+							"key": "username",
+							"value": "{{J_username}}",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "{{jira-username}}",
+							"key": "password",
+							"value": "{{J_password}}",
 							"type": "string"
 						}
 					]
@@ -191,7 +197,6 @@
 							"const resp = pm.response.json();\r",
 							"\r",
 							"pm.collectionVariables.set(\"keyOfCreatedIssue\", resp.key);\r",
-							"\r",
 							""
 						],
 						"type": "text/javascript",
@@ -204,13 +209,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "{{jira-token}}",
+							"key": "username",
+							"value": "{{J_username}}",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "{{jira-username}}",
+							"key": "password",
+							"value": "{{J_password}}",
 							"type": "string"
 						}
 					]
@@ -242,7 +247,7 @@
 			"response": []
 		},
 		{
-			"name": "Validate the summary field",
+			"name": "Validate Issue Summary",
 			"event": [
 				{
 					"listen": "test",
@@ -269,13 +274,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "{{jira-token}}",
+							"key": "username",
+							"value": "{{J_username}}",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "{{jira-username}}",
+							"key": "password",
+							"value": "{{J_password}}",
 							"type": "string"
 						}
 					]
@@ -305,7 +310,7 @@
 			"response": []
 		},
 		{
-			"name": "comment on issue",
+			"name": "Add Comment",
 			"event": [
 				{
 					"listen": "test",
@@ -343,13 +348,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "{{jira-token}}",
+							"key": "username",
+							"value": "{{J_username}}",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "{{jira-username}}",
+							"key": "password",
+							"value": "{{J_password}}",
 							"type": "string"
 						}
 					]
@@ -389,7 +394,7 @@
 			"response": []
 		},
 		{
-			"name": "Validate the comment",
+			"name": "Get Issue Comments",
 			"event": [
 				{
 					"listen": "test",
@@ -434,13 +439,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "{{jira-token}}",
+							"key": "username",
+							"value": "{{J_username}}",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "{{jira-username}}",
+							"key": "password",
+							"value": "{{J_password}}",
 							"type": "string"
 						}
 					]
@@ -471,7 +476,7 @@
 			"response": []
 		},
 		{
-			"name": "Modify comment",
+			"name": "Update Comment",
 			"event": [
 				{
 					"listen": "test",
@@ -506,13 +511,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "{{jira-token}}",
+							"key": "username",
+							"value": "{{J_username}}",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "{{jira-username}}",
+							"key": "password",
+							"value": "{{J_password}}",
 							"type": "string"
 						}
 					]
@@ -553,12 +558,16 @@
 			"response": []
 		},
 		{
-			"name": "Validate the edited comment",
+			"name": "Get Updated Comment",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
 							"const resp = pm.response.json();\r",
 							"\r",
 							"pm.test(\"The text message is correct\",()=>{\r",
@@ -586,13 +595,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "{{jira-token}}",
+							"key": "username",
+							"value": "{{J_username}}",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "{{jira-username}}",
+							"key": "password",
+							"value": "{{J_password}}",
 							"type": "string"
 						}
 					]
@@ -624,7 +633,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete comment",
+			"name": "Delete Comment",
 			"event": [
 				{
 					"listen": "test",
@@ -655,13 +664,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "{{jira-token}}",
+							"key": "username",
+							"value": "{{J_username}}",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "{{jira-username}}",
+							"key": "password",
+							"value": "{{J_password}}",
 							"type": "string"
 						}
 					]
@@ -713,13 +722,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "{{jira-token}}",
+							"key": "username",
+							"value": "{{J_username}}",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "{{jira-username}}",
+							"key": "password",
+							"value": "{{J_password}}",
 							"type": "string"
 						}
 					]
