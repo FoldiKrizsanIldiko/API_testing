@@ -5,7 +5,6 @@ This project was created by Földi Krizsán Ildikó. Feel free to check out my G
 
 ## About The Project
 
-<p>
 
 This project automates some functional tests for my Jira account's API. These tests are written in Postman and run on every push or pull request to the main branch of this repository. I also set up monitoring, so all the tests will be executed every Monday.</p>
 
@@ -23,6 +22,7 @@ API testing is crucial for ensuring a smooth-running application because Applica
 ### Why Postman?
 
 <img src="POSTMAN.png" width="30%" style="display:block;margin-left: auto; margin-right: auto;"> 
+
 Postman is one of the most popular software applications for API testing. It boasts a user-friendly interface, making it easy to learn and use. Postman supports various testing types, including functional, regression, performance, and security testing.
 
 A key feature of Postman is the ability to organize APIs into collections for better reusability and manageability.  Postman also excels in automated testing. You can create test scripts using JavaScript, a popular and versatile scripting language. Additionally, Postman integrates seamlessly with CI/CD pipelines, enabling automated testing as part of your development workflow.
@@ -32,6 +32,7 @@ Finally, Postman simplifies API response validation by allowing you to verify da
 ### Why Testing Jira API?
 
 <img src="JIRA.png" width="30%" style="display:block;margin-left: auto; margin-right: auto;"> 
+
 Jira, a widely used proprietary issue tracking and project management tool for software development teams, was my choice for testing.  Understanding any system through testing is valuable, and Jira's functionalities provided a perfect platform to gain those insights.
 
 ### Details of project
@@ -64,6 +65,7 @@ My tests utilize several GET, POST, PUT and DELETE requests:
 10. Delete Comment: The comment created for testing purposes is deleted.
 11. Delete Test Issue: Finally, the issue created solely for testing is deleted.
 
+<br>
 <img src="Collection.png" width="20%" style="display:block;margin-left: auto; margin-right: auto;"> 
 
 #### Run is in pipeline
@@ -73,9 +75,11 @@ To run the Postman API tests within my GitHub Actions pipeline, I leverage Newma
 Within the YAML file of this private repository, I can securely access the private repository using a token and execute the tests from there. Additionally, I've stored a version of the JSON file (stripped of sensitive data and replaced with "?") within this public repository for informational purposes.
 
 Test reports are generated and placed in the "Reports" folder. You can download these reports from the workflow's artifacts.
+
+<br>
 <img src="ReportsInAction.png" width="40%" style="display:block;margin-left: auto; margin-right: auto;"> 
 
-
+<br>
 <img src="HTMLReport.png" width="40%" style="display:block;margin-left: auto; margin-right: auto;"> 
 
 #### Setting up monitoring
@@ -84,6 +88,5 @@ I've configured monitoring for these API endpoints. The monitoring will execute 
 
 
 <img src="monitoringSetting.png" width="20%" style="display:block;margin-left: auto; margin-right: auto;"> 
-</p>
-
+<br>
 <img src="monitoring.png" width="40%" style="display:block;margin-left: auto; margin-right: auto;"> 
