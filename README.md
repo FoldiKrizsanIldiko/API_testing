@@ -37,18 +37,6 @@ Jira, a widely used proprietary issue tracking and project management tool for s
 
 ### Details of project
 
-I used Jira REST API v3 and the base url I stored in collection variable. For authentication I used username and a token as a password. These are stored as global variables and they are secrets.
-I have a GET request for all the events of account, in tests i check if response have more than 0 events, and check of status code.
-Next is GET request for all the issues of the account. I am testing the status code, and that I got any issue. The first issue's key is setted as a collection variable, to be able to use it for next request.
-I request the specify issue, based on previous resposne. After testing is the status code 200, I check if I got the issue I asked for.
-Next is POST request, I create an issue, with only required fields. The tests are for checking the status code (201), and to store the key of issue as collection variable.
-In next step I validate that the created issue has the summary field as I send. 
-Using POST request I add the comment to issue. Validating the status code(201) and the correctness of comment.
-After sending GET request for the comments of issue, I check the status code, and that I have only one comment. If it is correct, I store the key of comment as colection variable, for further usage.
-Using the key of comment, I change the comment with PUT request. With test I check the status code, and that the comment text has changed to new.
-With GET request of comment we validate the changes.
-Last two requests are deleting the comment, and deleting the issue we created and used only for testing purposes.
-
 I used Jira REST API v3 and I stored the base URL in a collection variable. For authentication, I employed a username and a password (token) stored as secure environment variables.
 
 My tests utilize several GET, POST, PUT and DELETE requests:
@@ -90,3 +78,7 @@ I've configured monitoring for these API endpoints. The monitoring will execute 
 <img src="monitoringSetting.png" width="20%" style="display:block;margin-left: auto; margin-right: auto;"> 
 <br>
 <img src="monitoring.png" width="40%" style="display:block;margin-left: auto; margin-right: auto;"> 
+
+Feel free to check the presentation slides for this project:
+
+[PRESENTATION - API testing with POSTMAN](https://docs.google.com/presentation/d/1dZOFNtGaDxWVSYNJM3qPYVP27knQFAXaBKcXITOAwqM/edit#slide=id.gd1bf8d60a4_0_118)
