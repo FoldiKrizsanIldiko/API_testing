@@ -78,3 +78,7 @@ I've configured monitoring for these API endpoints. The monitoring will execute 
 <img src="monitoringSetting.png" width="20%" style="display:block;margin-left: auto; margin-right: auto;"> 
 <br>
 <img src="monitoring.png" width="40%" style="display:block;margin-left: auto; margin-right: auto;"> 
+
+Feel free to check the presentation slides for this project:
+
+[PRESENTATION - API testing with POSTMAN](https://docs.google.com/presentation/d/1dZOFNtGaDxWVSYNJM3qPYVP27knQFAXaBKcXITOAwqM/edit#slide=id.gd1bf8d60a4_0_118)
