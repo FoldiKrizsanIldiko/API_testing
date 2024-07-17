@@ -1,18 +1,17 @@
 This project was created by Földi Krizsán Ildikó. Feel free to check out my GitHub account or my LinkedIn page:
 
-[![Földi Krizsán Ildikó](https://img.shields.io/badge/F%C3%B6ldi%20Krizs%C3%A1n%20Ildik%C3%B3-blue.svg?logo=github)](https://github.com/FoldiKrizsanIldiko)  
+[![Földi Krizsán Ildikó](https://img.shields.io/badge/F%C3%B6ldi%20Krizs%C3%A1n%20Ildik%C3%B3-blue.svg?logo=github)](https://github.com/FoldiKrizsanIldiko)
 [![Static Badge](https://img.shields.io/badge/-_%20F%C3%B6ldi%20Krizs%C3%A1n%20Ildik%C3%B3-grey.svg?logo=linkedin&colorB=555)](https://www.linkedin.com/in/ildiko-foldi-krizsan/)
 
 ## About The Project
 
-
-This project automates some functional tests for my Jira account's API. These tests are written in Postman and run on every push or pull request to the main branch of this repository. I also set up monitoring, so all the tests will be executed every Monday.</p>
+This project automates some functional tests for my Jira account's API. These tests are written in Postman and run on every push or pull request to the main branch of this repository. I also set up monitoring, so all the tests will be executed every Monday.`</p>`
 
 ## Built With
 
-![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)  
-![Newman](https://img.shields.io/badge/Newman%20CLI-FF6C37?style=for-the-badge&logo=postman&logoColor=white)  
-![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)  
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
+![Newman](https://img.shields.io/badge/Newman%20CLI-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
 ![Jira](https://img.shields.io/badge/jira%20API-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
 
 ### Why Is API testing important?
@@ -21,7 +20,7 @@ API testing is crucial for ensuring a smooth-running application because Applica
 
 ### Why Postman?
 
-<img src="POSTMAN.png" width="30%" style="display:block;margin-left: auto; margin-right: auto;"> 
+<img src="./assets/images/POSTMAN.png" width="30%" style="display:block;margin-left: auto; margin-right: auto;">
 
 Postman is one of the most popular software applications for API testing. It boasts a user-friendly interface, making it easy to learn and use. Postman supports various testing types, including functional, regression, performance, and security testing.
 
@@ -31,7 +30,7 @@ Finally, Postman simplifies API response validation by allowing you to verify da
 
 ### Why Testing Jira API?
 
-<img src="JIRA.png" width="30%" style="display:block;margin-left: auto; margin-right: auto;"> 
+<img src="./assets/images/JIRA.png" width="30%" style="display:block;margin-left: auto; margin-right: auto;">
 
 Jira, a widely used proprietary issue tracking and project management tool for software development teams, was my choice for testing.  Understanding any system through testing is valuable, and Jira's functionalities provided a perfect platform to gain those insights.
 
@@ -54,7 +53,7 @@ My tests utilize several GET, POST, PUT and DELETE requests:
 11. Delete Test Issue: Finally, the issue created solely for testing is deleted.
 
 <br>
-<img src="Collection.png" width="20%" style="display:block;margin-left: auto; margin-right: auto;"> 
+<img src="./assets/images/Collection.png" width="20%" style="display:block;margin-left: auto; margin-right: auto;">
 
 #### Run is in pipeline
 
@@ -65,20 +64,19 @@ Within the YAML file of this private repository, I can securely access the priva
 Test reports are generated and placed in the "Reports" folder. You can download these reports from the workflow's artifacts.
 
 <br>
-<img src="ReportsInAction.png" width="40%" style="display:block;margin-left: auto; margin-right: auto;"> 
+<img src="./assets/images/ReportsInAction.png" width="40%" style="display:block;margin-left: auto; margin-right: auto;">
 
 <br>
-<img src="HTMLReport.png" width="40%" style="display:block;margin-left: auto; margin-right: auto;"> 
+<img src="./assets/images/HTMLReport.png" width="40%" style="display:block;margin-left: auto; margin-right: auto;">
 
 #### Setting up monitoring
 
 I've configured monitoring for these API endpoints. The monitoring will execute all the tests every Monday and send email notifications if any tests fail.
 
-
-<img src="monitoringSetting.png" width="20%" style="display:block;margin-left: auto; margin-right: auto;"> 
+<img src="./assets/images/monitoringSetting.png" width="20%" style="display:block;margin-left: auto; margin-right: auto;"> 
 <br>
-<img src="monitoring.png" width="40%" style="display:block;margin-left: auto; margin-right: auto;"> 
+<img src="./assets/images/monitoring.png" width="40%" style="display:block;margin-left: auto; margin-right: auto;">
 
 Feel free to check the presentation slides for this project:
 
-[PRESENTATION - API testing with POSTMAN](https://docs.google.com/presentation/d/1dZOFNtGaDxWVSYNJM3qPYVP27knQFAXaBKcXITOAwqM/edit#slide=id.gd1bf8d60a4_0_118)
+[PRESETATION - API testing with POSTMAN](https://docs.google.com/presentation/d/1dZOFNtGaDxWVSYNJM3qPYVP27knQFAXaBKcXITOAwqM/edit#slide=id.gd1bf8d60a4_0_118)
