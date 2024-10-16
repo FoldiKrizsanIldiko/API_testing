@@ -80,3 +80,7 @@ I've configured monitoring for these API endpoints. The monitoring will execute 
 Feel free to check the presentation slides for this project:
 
 [PRESETATION - API testing with POSTMAN](https://docs.google.com/presentation/d/1dZOFNtGaDxWVSYNJM3qPYVP27knQFAXaBKcXITOAwqM/edit#slide=id.gd1bf8d60a4_0_118)
+
+Here are the results of monitoring after 4 months::
+
+![1729081838193](image/README/after4Months.png)
