@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: FoldiKrizsanIldiko/JiraAction
-          token: ${{ secrets.ACTION_TOKEN}}
+          token: ${{ secrets.ACTION_TOKEN1}}
 
       - uses: actions/setup-node@v4
         with:
